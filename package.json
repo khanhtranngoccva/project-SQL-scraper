@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@types/selenium-webdriver": "^4.1.6",
-    "mysql": "^2.18.1",
+    "dotenv": "^16.0.3",
+    "mysql2": "^2.3.3",
     "selenium-webdriver": "^4.5.0"
   }
 }
