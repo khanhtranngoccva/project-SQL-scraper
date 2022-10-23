@@ -1,4 +1,4 @@
-const dbConnection = require("./database");
+const dbConnection = require("../database");
 
 async function resetConfiguration() {
     await dbConnection.query("DELETE FROM user_config");

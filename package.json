@@ -2,7 +2,7 @@
   "name": "magic-snippets-sql-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "initializer/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/selenium-webdriver": "^4.1.6",
     "dotenv": "^16.0.3",
+    "lorem-ipsum": "^2.0.8",
     "mysql2": "^2.3.3",
     "selenium-webdriver": "^4.5.0"
   }
