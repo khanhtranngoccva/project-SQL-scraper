@@ -29,7 +29,7 @@ async function generateLikes() {
     const userQuery = await dbConnection.query("SELECT id FROM user");
     const snippets = snippetQuery[0].map(snippet => snippet.id);
     const users = userQuery[0].map(user => user.id);
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 50; i++) {
         const curSnippet = pickRandom(snippets);
         const curUser = pickRandom(users);
         await snippetsController.addLike(curUser, curSnippet);

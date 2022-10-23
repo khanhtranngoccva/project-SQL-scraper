@@ -37,14 +37,24 @@ END; $
 
 DELIMITER $
 DROP PROCEDURE IF EXISTS get_newest;
-CREATE PROCEDURE get_newest(max INT)
+CREATE PROCEDURE get_newest(max INT, offset INT)
 BEGIN
-    SELECT snippet.created_at
-    FROM snippet
-    INNER JOIN `like` ON snippet.id = `like`.like_target
-    INNER JOIN comment ON snippet.id = comment.comment_target
-    GROUP BY snippet.id
-    ORDER BY snippet.created_at DESC
-    LIMIT max;
+    SELECT *
+    FROM snippet_main_view
+    ORDER BY created_at
+    DESC
+    LIMIT max OFFSET offset;
+END;
+$
+
+DELIMITER $
+DROP PROCEDURE IF EXISTS get_most_popular;
+CREATE PROCEDURE get_most_popular(max INT, offset INT)
+BEGIN
+    SELECT *
+    FROM snippet_main_view
+    ORDER BY like_count
+            DESC
+    LIMIT max OFFSET offset;
 END;
 $

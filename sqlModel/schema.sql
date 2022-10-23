@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS snippet
     additional_css        JSON                  DEFAULT ('[]'),
     # Additional preloaded JS scripts.
     additional_js         JSON                  DEFAULT ('[]'),
+    is_private            BOOLEAN               DEFAULT FALSE,
     FOREIGN KEY (created_by) REFERENCES user (id)
 );
 
@@ -86,9 +87,10 @@ CREATE TABLE IF NOT EXISTS `like`
 # Entity set for the comment on a snippet.
 CREATE TABLE IF NOT EXISTS comment
 (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     commented_by   INT NOT NULL,
     comment_target INT NOT NULL,
-    comment_text LONGTEXT DEFAULT (''),
+    comment_text   LONGTEXT DEFAULT (''),
     FOREIGN KEY (commented_by) REFERENCES user (id),
     FOREIGN KEY (comment_target) REFERENCES snippet (id)
 );

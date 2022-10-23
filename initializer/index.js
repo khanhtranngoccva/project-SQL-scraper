@@ -67,6 +67,7 @@ async function processUser(userName, updateUser=false) {
             await Promise.all(snippetLinkHrefs.map(snippet => processSnippet(snippet, userName)));
             break;
         } catch (e) {
+            console.log(e);
         } finally {
             await driver.quit();
         }
