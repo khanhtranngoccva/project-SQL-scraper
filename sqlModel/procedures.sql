@@ -58,3 +58,13 @@ BEGIN
     LIMIT max OFFSET offset;
 END;
 $
+
+DELIMITER $
+DROP PROCEDURE IF EXISTS get_comments;
+CREATE PROCEDURE get_comments(snippet_id INT)
+BEGIN
+    SELECT *
+    FROM snippet_comment_view
+    WHERE snippet_comment_view.snippet_id = snippet_id;
+END;
+$

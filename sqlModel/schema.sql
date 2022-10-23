@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS user_config
 CREATE TABLE IF NOT EXISTS snippet
 (
     id                    INT PRIMARY KEY AUTO_INCREMENT,
-    created_by            INT,
+    created_by            INT NOT NULL,
     created_at            DATETIME     NOT NULL DEFAULT (CURTIME()),
     title                 VARCHAR(200) NOT NULL DEFAULT ('An untitled magic snippet'),
     html_content          LONGTEXT              DEFAULT (''),

@@ -14,13 +14,12 @@ async function generateComments() {
     const snippets = snippetQuery[0].map(snippet => snippet.id);
     const users = userQuery[0].map(user => user.id);
     for (let i = 0; i < 50; i++) {
-        await dbConnection.query("INSERT INTO comment (commented_by, comment_target, comment_text) VALUES (?, ?, ?)", [
-            pickRandom(users),
-            pickRandom(snippets),
-            loremIpsum(),
-        ]);
+        await snippetsController.addComment({
+            userID: pickRandom(users),
+            snippetID: pickRandom(snippets),
+        }, loremIpsum());
     }
-    await dbConnection.end();
+
 }
 
 
@@ -34,7 +33,13 @@ async function generateLikes() {
         const curUser = pickRandom(users);
         await snippetsController.addLike(curUser, curSnippet);
     }
+
+}
+
+async function main() {
+    await generateComments();
+    await generateLikes();
     await dbConnection.end();
 }
 
-generateLikes();
+main();

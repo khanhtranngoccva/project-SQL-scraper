@@ -39,7 +39,7 @@ module.exports = {
     async addSnippet({userID}, snippetData) {
         const data = filterAndEscape(snippetData);
         await dbConnection.query(`INSERT INTO snippet
-                                  SET ${data}`);
+                                  SET ${data}, created_by = ?`, [userID]);
     },
     async editSnippet({userID, snippetID}, snippetData) {
         if (!snippetID || !userID) {
@@ -50,6 +50,10 @@ module.exports = {
                                   SET ${data}
                                   WHERE id = ?
                                     AND created_by = ?`, [snippetID, userID]);
+    },
+    async getComments({snippetID}) {
+        const [[result]] = await dbConnection.query(`CALL get_comments(?)`, [snippetID]);
+        return result;
     },
     async addComment({userID, snippetID}, comment) {
         await dbConnection.query(`INSERT INTO comment (commented_by, comment_target, comment_text)

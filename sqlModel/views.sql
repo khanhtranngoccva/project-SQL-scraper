@@ -6,7 +6,7 @@ FROM `like`
 GROUP BY like_target;
 
 CREATE OR REPLACE VIEW comment_count_view AS
-SELECT comment_target as target, COUNT(*) AS comment_count
+SELECT comment_target AS target, COUNT(*) AS comment_count
 FROM `comment`
 GROUP BY comment_target;
 
@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW snippet_main_view AS
 SELECT snippet.id                                      AS id,
        user_name                                       AS creator_user_name,
        CONCAT(user.given_name, ' ', user.family_name)  AS creator_display_name,
-       profile_picture AS creator_profile_picture,
+       profile_picture                                 AS creator_profile_picture,
        created_at,
        title,
        remix_count,
@@ -25,3 +25,9 @@ FROM snippet
          LEFT OUTER JOIN comment_count_view ON snippet.id = comment_count_view.target
          INNER JOIN user ON user.id = snippet.created_by;
 
+CREATE OR REPLACE VIEW snippet_comment_view AS
+SELECT snippet.id AS snippet_id, comment.id AS comment_id, user_name, CONCAT(USER.given_name, ' ', USER.family_name) AS display_name, user.profile_picture,
+       comment.comment_text
+FROM snippet
+         INNER JOIN COMMENT ON snippet.id = COMMENT.comment_target
+         INNER JOIN USER ON COMMENT.commented_by = USER.id;
